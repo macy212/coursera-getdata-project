@@ -46,13 +46,16 @@ tidy <- tidy[3:ncols]
 tidy <- data.frame(lapply(tidy, as.character), stringsAsFactors=FALSE)
 
 # replace Activity ID by its corresponding strings, padded strings with spaces so that the output aligns vertically.
-tidy$ActivityID <- sapply(tidy$ActivityID, function(x){sprintf("%18s",activity_labels[x,2])})
+tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
 
 # change ActivityID's name into Activity
 colnames(tidy)[2] <- c("Activity")
 
+# formatting each element to 20 spaces
+tidy <- sapply(tidy, FUN=function(x){x <- sprintf("%20s",x)})
+
 # write tidy to a text file called tidy.txt
-write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t\t\t")
+write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t", quote=FALSE)
 
 # for testing if file tidy.txt is readable
-# tt <- read.table('tidy.txt')
+tt <- read.table('tidy.txt')

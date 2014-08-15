@@ -52,5 +52,7 @@ tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
 colnames(tidy)[2] <- c("Activity")
 
 # write tidy to a text file called tidy.txt
-write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t\t")
+write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t\t\t")
 
+# for testing if file tidy.txt is readable
+# tt <- read.table('tidy.txt')

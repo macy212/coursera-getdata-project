@@ -45,8 +45,8 @@ tidy <- tidy[3:ncols]
 # change the class of tidy from numeric to character.
 tidy <- data.frame(lapply(tidy, as.character), stringsAsFactors=FALSE)
 
-# replace Activity ID by its corresponding strings
-tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
+# replace Activity ID by its corresponding strings, padded strings with spaces so that the output aligns vertically.
+tidy$ActivityID <- sapply(tidy$ActivityID, function(x){sprintf("%18s",activity_labels[x,2])})
 
 # change ActivityID's name into Activity
 colnames(tidy)[2] <- c("Activity")

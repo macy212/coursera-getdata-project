@@ -46,11 +46,11 @@ tidy <- tidy[3:ncols]
 tidy <- data.frame(lapply(tidy, as.character), stringsAsFactors=FALSE)
 
 # replace Activity ID by its corresponding strings
-tidy$ActivityID <- sapply(tidy$ActivityID, getlabelbyindex)
+tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
 
 # change ActivityID's name into Activity
 colnames(tidy)[2] <- c("Activity")
 
 # write tidy to a text file called tidy.txt
-write.table(tidy, file = "tidy.txt", row.names = FALSE)
+write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t\t")
 

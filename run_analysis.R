@@ -53,9 +53,10 @@ colnames(tidy)[2] <- c("Activity")
 
 # formatting each element to 20 spaces
 tidy <- sapply(tidy, FUN=function(x){x <- sprintf("%20s",x)})
+colnames(tidy) <- sapply(colnames(tidy), FUN=function(x){x <- sprintf("%20s",x)})
 
 # write tidy to a text file called tidy.txt
 write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t", quote=FALSE)
 
 # for testing if file tidy.txt is readable
-tt <- read.table('tidy.txt')
+# tt <- read.table('tidy.txt')

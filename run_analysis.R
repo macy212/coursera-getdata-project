@@ -2,8 +2,15 @@
 # load labels
 activity_labels         <- read.table("UCI HAR Dataset/activity_labels.txt", colClasses="character")
 features                <- read.table("UCI HAR Dataset/features.txt", colClasses="character")[, 2]
-wanted_features_index   <- grep("mean|std", features, ignore.case=TRUE)
+wanted_features_index   <- grep("mean\\(\\)|std\\(\\)", features, ignore.case=TRUE)
+
+# some formatting
 wanted_features         <- features[wanted_features_index]
+wanted_features         <- gsub("Gravity","Grav", wanted_features)
+wanted_features         <- gsub("Gyro","Gyr", wanted_features)
+wanted_features         <- gsub("mean\\(\\)","Mean", wanted_features)
+wanted_features         <- gsub("std\\(\\)","Std", wanted_features)
+wanted_features         <- gsub("-",".", wanted_features)
 
 # load data frames from data table
 # subject_* contains subjectID
@@ -45,15 +52,15 @@ tidy <- tidy[3:ncols]
 # change the class of tidy from numeric to character.
 tidy <- data.frame(lapply(tidy, as.character), stringsAsFactors=FALSE)
 
-# replace Activity ID by its corresponding strings, padded strings with spaces so that the output aligns vertically.
+# replace Activity codes to actual activities.
 tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
 
 # change ActivityID's name into Activity
 colnames(tidy)[2] <- c("Activity")
 
 # formatting each element to 20 spaces
-tidy <- sapply(tidy, FUN=function(x){x <- sprintf("%20s",x)})
-colnames(tidy) <- sapply(colnames(tidy), FUN=function(x){x <- sprintf("%20s",x)})
+tidy <- sapply(tidy, function(x){x <- sprintf("%-24s",x)})
+colnames(tidy) <- sapply(colnames(tidy), function(x){x <- sprintf("%-24s",x)})
 
 # write tidy to a text file called tidy.txt
 write.table(tidy, file = "tidy.txt", row.names = FALSE, sep = "\t", quote=FALSE)

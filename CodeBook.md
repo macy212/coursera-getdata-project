@@ -2,18 +2,9 @@
 
 ## Variables
 
-### 1. SubjectID
-* Each subject is assigned to ONE unique ID
+1. SubjectID
 
-### 2. Activity
-Can be one of
-* WALKING
-* WALKING_UPSTAIRS
-* WALKING_DOWNSTAIRS
-* SITTING
-* STANDING
-* LAYING
-
+2. Activity
 
 3. tBodyAcc.Mean.X         
 

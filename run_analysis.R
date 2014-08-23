@@ -39,14 +39,14 @@ X_all           <- rbind(X_test, X_train)
 y_all           <- rbind(y_test, y_train)
 
 # dataset which needs to be processed
-data <- cbind(subject_all, y_all, X_all)
+data <- cbind(y_all, subject_all, X_all)
 
 # calculate the number of columns the data/tidy has, to delete
 # the duplicated columns aggregate produced.
 ncols <- dim(data)[2]
 
 # calculate the mean of data by Subject and Activity.
-tidy <- aggregate(data, list(data$ActivityID, data$SubjectID), mean)
+tidy <- aggregate(data, list(data$SubjectID, data$ActivityID), mean)
 tidy <- tidy[3:ncols]
 
 # change the class of tidy from numeric to character.
@@ -58,7 +58,7 @@ tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
 # change ActivityID's name into Activity
 colnames(tidy)[2] <- c("Activity")
 
-# formatting each element to 20 spaces
+# formatting each element to 24 spaces
 tidy <- sapply(tidy, function(x){x <- sprintf("%-24s",x)})
 colnames(tidy) <- sapply(colnames(tidy), function(x){x <- sprintf("%-24s",x)})
 

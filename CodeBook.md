@@ -2,9 +2,10 @@
 
 ## Variables
 
-1. SubjectID
 
-2. Activity
+1. Activity
+
+2. SubjectID
 
 3. tBodyAcc.Mean.X         
 

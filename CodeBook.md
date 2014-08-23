@@ -2,7 +2,6 @@
 
 ## Variables
 
-
 1. Activity
 
 2. SubjectID

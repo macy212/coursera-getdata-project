@@ -24,15 +24,6 @@ subject_train   <- read.table("UCI HAR Dataset/train/subject_train.txt")
 X_train         <- read.table("UCI HAR Dataset/train/X_train.txt")[, wanted_features_index]
 y_train         <- read.table("UCI HAR Dataset/train/y_train.txt")
 
-# apply names to data frames
-colnames(subject_test)  <- c("SubjectID")
-colnames(X_test)        <- wanted_features
-colnames(y_test)        <- c("ActivityID")
-
-colnames(subject_train) <- c("SubjectID")
-colnames(X_train)       <- wanted_features
-colnames(y_train)       <- c("ActivityID")
-
 # combining vertially of all data
 subject_all     <- rbind(subject_test, subject_train)
 X_all           <- rbind(X_test, X_train)
@@ -40,6 +31,9 @@ y_all           <- rbind(y_test, y_train)
 
 # dataset which needs to be processed
 data <- cbind(y_all, subject_all, X_all)
+
+# apply names to data
+colnames(data)  <- c("ActivityID", "SubjectID", wanted_features)
 
 # calculate the number of columns the data/tidy has, to delete
 # the duplicated columns aggregate produced.
@@ -56,7 +50,7 @@ tidy <- data.frame(lapply(tidy, as.character), stringsAsFactors=FALSE)
 tidy$ActivityID <- sapply(tidy$ActivityID, function(x){activity_labels[x,2]})
 
 # change ActivityID's name into Activity
-colnames(tidy)[2] <- c("Activity")
+colnames(tidy)[1] <- c("Activity")
 
 # formatting each element to 24 spaces
 tidy <- sapply(tidy, function(x){x <- sprintf("%-24s",x)})
